@@ -1,0 +1,74 @@
+What is contribution technique ?
+
+    //Contribution technique  -------------> freq  of that curr element after  finding freq , freq * val(i.e  think think, we are checking how many tyms it occurs)
+    //how many times ?  obvious , multiply which is nothing but freq into curr element (freq * A[i]);
+
+
+Qn) Sum of All Subarrays
+Contribution Technique :  Sum of All Subarrays
+
+public class Solution {
+    public long subarraySum(int[] A) {
+    
+    //Contribution technique  -------------> freq  of that curr element after  finding freq , freq * val(i.e  think think, we are checking how many tyms it occurs)
+    //how many times ?  obvious , multiply which is nothing but freq into curr element (freq * A[i]);
+    
+        long totalsum = 0;
+        long n = A.length;
+
+        for(int i = 0; i < n; i++){
+            long val = A[i];
+            long freq = (i+1) * (n- i);
+            totalsum += freq * val;
+
+        }
+
+        return totalsum;
+    }
+}
+
+
+
+qn) sum of all Submatrices
+
+Input 1:
+
+A = [ [1, 1]
+      [1, 1] ]
+      
+Input 2:
+A = [ [1, 2]
+      [3, 4] ]
+
+
+Example Output
+
+Output 1:
+16
+
+Output 2:
+40
+
+
+
+public class Solution {
+    public int solve(int[][] A) {
+        //contribution method ------> check freq  of the value
+        
+        int n = A.length;
+        int freq = 0;
+        int sum = 0;
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                int val = A[i][j];
+                freq = (i+1) * (j+1) *(n-i) * (n-j);
+                sum += freq * val;
+            }
+        }
+
+        return sum;    
+        
+    }
+   
+}
