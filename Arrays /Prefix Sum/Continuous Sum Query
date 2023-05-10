@@ -1,0 +1,39 @@
+Continuous Sum Query
+
+
+Use of  prefix Sum -----------> Summation of all values in the array
+
+qn) Continuous Sum Query  and  Co-operate flight bookings (https://leetcode.com/problems/corporate-flight-bookings/)
+
+
+public class Solution {
+    public int[] solve(int A, int[][] B) {
+         int n = B.length;
+        int ans[] = new int[A];
+        
+
+        for(int i = 0 ; i < n; i++){
+
+            int st = B[i][0] - 1;
+            int end = B[i][1] -1;
+            int val = B[i][2];
+
+            ans[st] += val;
+
+            if((end + 1) < A){
+                ans[end + 1] -= val;
+            }
+
+            
+        }
+
+        for(int i =1; i < A; i++){
+            ans[i] = ans[i-1] + ans[i]; 
+        }
+
+        return ans;
+      
+
+        
+    }
+}
