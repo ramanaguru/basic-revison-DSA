@@ -1,0 +1,83 @@
+input : 
+nums[] or A[] :[1, 2, 3]    output is  1 2 4 
+
+nums[] or A[] :[9]      output is 10
+
+no zeros in ur input
+
+
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int n =  digits.length;
+
+        for(int i = n -1; i >= 0; i--){
+            if(digits[i] < 9){
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
+        }
+
+        int new_Digit[] = new int [n+1];
+        new_Digit[0] = 1;
+        return new_Digit;
+        
+    }
+}
+
+
+
+Variation 2 :
+
+what if i zeros considering  in ur input:
+
+nums[] or A[] :[0,0,0, 1, 2, 3]    output is  1 2 4 
+
+nums[] or A[] :[9]      output is 10
+
+
+public class Solution {
+    public int []trim(int A[]){
+        int i;
+        for(i =0; i<A.length; i++){
+            if(A[i] != 0){
+                break; 
+            }           
+        }
+
+        int res[] = new int[A.length - i ];
+        for(int j = 0 ; j < res.length; j++ , i++){
+            res[j] = A[i];
+        }
+
+        return res;
+    }
+
+
+    //0 0 1 5
+
+    // 0 0 1 6
+
+    //1 6
+    
+
+    public int[] plusOne(int[] A) {
+        int n = A.length;
+
+        for(int i = n-1; i >= 0 ; i --){
+            if(A[i] < 9){
+                A[i]++;
+                return trim(A);
+            }
+            
+            A[i]= 0; // what if 9 so it should be 10. make last as 0
+        }
+
+        int ans[] = new int[n+1]; 
+        ans[0]=1;
+        return ans;
+
+
+    }
+}
