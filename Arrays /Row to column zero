@@ -8,7 +8,7 @@ You are given a 2D integer matrix A, make all the elements in a row or column ze
 public class Solution {
     public int[][] solve(int[][] A) {
          int n = A.length;
-         int m = A[0].lentgh;
+         int m = A[0].length;
          
          int row_Wise[] = new int[n];
          int col_Wise[] = new int[m];
@@ -24,7 +24,7 @@ public class Solution {
 
        for(int i = 0; i < n; i++){
            for(int j =0 ;j < m; j++){
-               if(row_Wise ==1|| col_Wise == 1){
+               if(row_Wise [i]== -1|| col_Wise[j] == -1){
                    A[i][j] = 0;
                }
            }
