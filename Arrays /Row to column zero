@@ -1,0 +1,61 @@
+Row to column zero
+
+Problem Description:
+
+You are given a 2D integer matrix A, make all the elements in a row or column zero if the A[i][j] = 0. Specifically, make entire ith row and jth column zero.
+
+//Code : TC --> o(n * 2)  ; SC --> o(N)
+public class Solution {
+    public int[][] solve(int[][] A) {
+         int n = A.length;
+         int m = A[0].lentgh;
+         
+         int row_Wise[] = new int[n];
+         int col_Wise[] = new int[m];
+
+        for(int i = 0; i< n; i++){
+            for(int j =0 ; j < m ; j++){
+                if(A[i][j] == 0){
+                    row_Wise[i] = -1;
+                    col_Wise[j] = -1;
+                }
+            }
+        }
+
+       for(int i = 0; i < n; i++){
+           for(int j =0 ;j < m; j++){
+               if(row_Wise ==1|| col_Wise == 1){
+                   A[i][j] = 0;
+               }
+           }
+       }
+
+       return A;
+        
+    }
+}
+
+//i j = 0
+
+// [1,2,3 4]
+// [5,6,7,0] 
+// [9,2, 0,4]
+// 
+
+
+// [1,2,3, 0]
+// [5,6,7 -1]   
+// [9,2,-1,0]
+
+
+// [1,2,0,0]
+// [0 0 0 0]   
+// [0,0,0,0]
+//
+
+//Observation :
+
+// change  0 ---> -1 {refer above diagram}
+// then iterate if u find any -1 in our rowwise || col col_Wise
+// we make entire row and col  == 0 in our given A array
+//last return the modified Original Array
