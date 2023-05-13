@@ -1,0 +1,76 @@
+Range Sum Query Technique :-
+
+It is a technique where you precompute and store the total sum of the sequeunce elements(that allows us to know totalsum fastly)
+
+Range (L, R) : //L is left  and R is rigth
+
+
+Supose they give us calculate sum (L, R) ? //Think of cricket over(from over 0 - from 9) calculate total  
+
+
+ if( L == 0) ===>  Pf[R]   // if u are at 0 index when u do L-1 -> i.e. 0 - 1 = -1 ; out of Bound Error comes so to avoid u use
+ else ===> pf[R] - pf[L-1]
+ 
+ 
+ 
+ // PLEASE DO DO TRY THIS  , For Understanding  : Leetcode 724(Find Pivot Index) pivot index is also known as Equilibrium inde.(sum of left == sum of right)
+         
+         
+         public int pivotIndex(int[] nums) {
+
+        int n = nums.length;
+        //Create Prefix Sum
+        int pf[] = new int[n];
+        pf[0] = nums[0];
+        for(int i = 1 ; i < n; i++){
+            pf[i] = pf[i-1] + nums[i];
+        }
+
+        //crete suffix Sum
+        int sf[] = new int[n];
+        sf[n-1] = nums[n-1];
+        for(int i = n-2; i>= 0; i--){
+            sf[i] = sf[i+1] + nums[i];
+        }
+
+        for(int i = 0; i < n ; i++){
+            if(pf[i] == sf[i]){
+                return i;
+            }
+        }
+
+        return -1;
+
+        
+    }
+}
+
+//Think of optimisation : (sum query formula)
+
+   int n = nums.length;
+        int leftsum = 0;
+        int rightsum = 0;
+
+        //Create Prefix Sum and sum query formula  or
+        // refer my github( https://github.com/ramanaguru/basic-revison-DSA/new/main/Arrays%20/Prefix%20Sum )
+        int pf[] = new int[n];
+        pf[0] = nums[0];
+        for(int i = 1 ; i < n; i++){
+            pf[i] = pf[i-1] + nums[i];
+        }
+
+        for(int i = 0; i < n ; i++){
+            if(i == 0){
+                leftsum  = 0;
+            }else{
+                leftsum = pf[i-1];
+            }
+            rightsum = pf[n-1] - pf[i];
+
+            if(leftsum == rightsum){
+                return i;
+            }
+
+        }
+
+        return -1;
