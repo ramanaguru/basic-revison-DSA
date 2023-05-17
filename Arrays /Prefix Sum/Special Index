@@ -1,0 +1,116 @@
+Special Index  
+
+=====================================================================================================================================
+//Problem Statement
+
+Problem Description
+Given an array, arr[] of size N, the task is to find the count of array indices such that removing an element from these indices makes the sum of even-indexed and odd-indexed array elements equal.
+
+=====================================================================================================================================
+Examples
+
+Example Input
+Input 1:
+A=[2, 1, 6, 4]
+Input 2:
+
+A=[1, 1, 1]
+
+
+Example Output
+Output 1:
+1
+Output 2:
+
+3
+
+
+Example Explanation
+Explanation 1:
+Removing arr[1] from the array modifies arr[] to { 2, 6, 4 } such that, arr[0] + arr[2] = arr[1]. 
+Therefore, the required output is 1. 
+Explanation 2:
+
+Removing arr[0] from the given array modifies arr[] to { 1, 1 } such that arr[0] = arr[1] 
+Removing arr[1] from the given array modifies arr[] to { 1, 1 } such that arr[0] = arr[1] 
+Removing arr[2] from the given array modifies arr[] to { 1, 1 } such that arr[0] = arr[1] 
+Therefore, the required output is 3.
+
+=====================================================================================================================================
+
+
+//Code  With Explanation
+
+public class Solution {
+    public int solve(int[] A) {
+      
+      int n = A.length;
+      int pfeven[] = new int [n];  //create even prefixsum array of length n
+      int pfodd[]  = new int [n];  //create odd prefixsum array  of length n
+
+      pfeven[0] = A[0];               //construct even prefixsum array
+      for(int i = 1; i < n; i++){
+          if(i % 2 == 0){
+              pfeven[i] = pfeven[i-1] + A[i];
+          }
+          else{
+              pfeven[i] = pfeven[i-1];
+          }
+      }
+
+      pfodd[0] = 0;                   //construct odd prefixsum array
+      for(int i = 1; i < n; i++){
+          if(i % 2 == 1){
+              pfodd[i]= pfodd[i-1] + A[i];
+          }
+          else{
+              pfodd[i] = pfodd[i-1];
+          }
+      }
+    
+
+    // specialINDEX ----->   sum of even-index elements == sum of odd-index elements ; return count of specialINDEX
+
+      int se = 0;                     // initialise sumeven 
+      int so = 0;                     // initialise sumodd 
+      int count = 0;                  // initialise count 
+
+
+
+         /*
+            formula used,
+                        l                 r
+            Se = psEven[i-1]    +    psOdd[n-1] - preOdd[i]
+                        l                 r
+            So = psOdd[i-1]     +   psEven[n-1] - psEven[i]
+
+        */ 
+
+
+      for(int i = 0 ; i < n ; i++){
+          
+          se = pfodd[n-1] - pfodd[i];
+          if(i != 0){
+              se += pfeven[i-1];
+          }
+
+          so = pfeven[n-1] - pfeven[i];
+          if(i != 0){
+              so += pfodd[i-1];
+          }
+
+
+          if(so == se){
+              count++;
+          }
+               
+      }
+
+      return count;
+
+    }
+}
+
+
+
+
