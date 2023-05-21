@@ -1,0 +1,76 @@
+valid Parentheses (Leetcode 20)
+
+=====================================================================================================================================
+
+//Problem Link ============> https://leetcode.com/problems/valid-parentheses/description/
+
+=====================================================================================================================================
+
+//Problem Statement 
+
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+ 
+
+Example 1:
+
+Input: s = "()"
+Output: true
+
+Example 2:
+
+Input: s = "()[]{}"
+Output: true
+
+Example 3:
+
+Input: s = "(]"
+Output: false
+
+=====================================================================================================================================
+
+//Code   ===> TC :  o(N)  ;   SC : O(N)
+
+    public boolean isValid(String s) {
+    
+        int n = s.length();
+
+        Stack<Character>st = new Stack<>();
+
+        for(int i = 0; i < n; i++){
+            if(s.charAt(i) == '}' || s.charAt(i) == ']' || s.charAt(i) == ')'){
+                if(st.isEmpty()){
+                    return false;
+                }
+                else{
+                    if(s.charAt(i) == '}'  && (st.peek() != '{' )) return false;
+                    else if( s.charAt(i) == ')'  && (st.peek() != '(' ) )return false;
+                    else if( s.charAt(i) == ']'  && (st.peek() != '[' ) )return false;
+                    else{
+                        st.pop(); 
+                    }
+                }
+            }
+           else{
+                st.push(s.charAt(i)); // if it start with open brackets paranthesis
+            }
+      
+        }
+
+        if(st.isEmpty()){
+            return true;
+        }
+        
+        else{
+            return false;
+        }
+        
+    }
+        
+    
+    =====================================================================================================================================
