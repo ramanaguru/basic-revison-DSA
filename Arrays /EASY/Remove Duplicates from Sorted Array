@@ -48,8 +48,10 @@ class Solution {
     }
 }
 
+==============================================================================================================================================
 
 Method - 2 : Two Pointers Approach
+
 //CODE —————> TC :  O(n) ;    SC : o(1)
 
 class Solution {
@@ -66,6 +68,24 @@ class Solution {
     }
 }
 
+
+==============================================================================================================================================
+What if they ask you in ArrayList to solve (SAME  AS METHOD- 2) 
+
+
+import java.util.ArrayList; // Initial this first
+public static int removeDuplicates(ArrayList<Integer> arr,int n) {
+
+		int i = 0;
+		for(int j =1; j <= n-1; j++){
+			if(!arr.get(j).equals(arr.get(j - 1))){                         // arr.get(j) != arr.get(i) =======>  In Hard case fail , so use .equals 
+				i++;
+				arr.set(i, arr.get(j));
+			}
+		}
+
+		return i+1;
+	}
 
 
 =====================================================================================================================================
