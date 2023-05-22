@@ -1,0 +1,81 @@
+	Second Largest Element in an Array without sorting || Ninja And The Second Order Elements
+  
+ =====================================================================================================================================
+
+ //Problem Link  =========> https://www.codingninjas.com/codestudio/problems/ninja-and-the-second-order-elements_6581960
+
+
+=====================================================================================================================================
+
+
+//Problem Statement :
+ 
+  Given an array, find the second smallest and second largest element in the array. Print ‘-1’ in the event that either of them doesn’t exist.
+
+Example 1:
+Input: [1,2,4,7,7,5]
+Output: Second Smallest : 2
+	      Second Largest  : 5
+        
+Explanation: The elements are as follows 1,2,3,5,7,7 and hence second largest of these is 5 and second smallest is 2
+
+Example 2:
+Input: [1]
+Output: Second Smallest : -1
+	      Second Largest  : -1
+        
+Explanation: Since there is only one element in the array, it is the largest and smallest element present in the array. There is no second largest or second smallest element present.
+
+=====================================================================================================================================
+
+//CODE    ---------->   TC : o(N)    ;   SC :o(1)
+
+
+public class Solution {
+    public static int[] getSecondOrderElements(int n, int []a) {
+        
+        int slargest = findlargest(n , a);
+        int ssmallest= findsmallest(n, a);
+
+
+        int ans[] = {slargest ,ssmallest} ;
+        return ans;
+
+        
+    }
+
+    public static int findlargest(int n , int arr[]){
+        int large = arr[0];
+        int seclarge = Integer.MIN_VALUE;
+
+        for(int i = 1; i < n; i++){
+            if(arr[i] > large){
+                seclarge = large;
+                large = arr[i];
+            }
+
+            else if(arr[i] != large && arr[i] > seclarge ){
+                seclarge = arr[i];
+            }
+        }
+
+        return seclarge;
+    } 
+
+    public static int findsmallest(int n, int arr[]){
+        int small = arr[0];
+        int secsmall = Integer.MAX_VALUE;
+
+        for(int i =1; i < n; i++){
+            if(arr[i] < small){
+                secsmall = small;
+                small = arr[i];
+            }
+            else if(arr[i] != small && arr[i] < secsmall){
+                secsmall = arr[i];
+            }
+        }
+
+        return secsmall;
+    }
+}
