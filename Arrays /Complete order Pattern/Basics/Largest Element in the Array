@@ -26,4 +26,24 @@ Explanation: 10 is the largest element in the array.
 
 =====================================================================================================================================
 
-//Code : 
+//Code --- >  TC : o(N)   ;    SC :o(1)
+
+
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+
+    static int largestElement(int[] arr, int n) {
+        int largeVal = arr[0];
+        for(int i = 1 ; i < n ; i++){
+            if(arr[i] > largeVal){
+                largeVal = arr[i];
+            }
+        }
+
+        return largeVal;
+
+    }
+}
+
