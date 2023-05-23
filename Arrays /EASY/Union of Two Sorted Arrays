@@ -1,0 +1,132 @@
+Union of Two Sorted Arrays
+=====================================================================================================================================
+//Problem Link  =========> https://www.codingninjas.com/codestudio/problems/sorted-array_6613259
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+Given two sorted arrays, arr1, and arr2 of size n and m. Find the union of two sorted arrays.
+
+The union of two arrays can be defined as the common and distinct elements in the two arrays.NOTE: Elements in the union should be in ascending order.
+
+Sample Input 1 :
+5 3
+
+1 2 3 4 6
+2 3 5
+
+Sample Output 1 :
+1 2 3 4 5 6
+
+
+Explanation Of Sample Input 1 :
+Input: ‘N’ = 5 ‘M’ = 3
+‘A’ = [1, 2, 3, 4, 6]
+‘B’ = [2, 3, 5]
+
+Output: [1, 2, 3, 4, 5, 6]
+
+Explanation: Common elements in ‘A’ and ‘B’ are: [2, 3]
+Distinct elements in ‘A’ are: [1, 4, 6]
+Distinct elements in ‘B’ are: [5]
+Union of ‘A’ and ‘B’ is: [1, 2, 3, 4, 5, 6]
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(m+n)log(m+n))  ;    SC : o(1)      // if u are considering ans array then Sc: O(m+n)
+
+//This code will fail test cases , FAIL FOR BIGGER TEST CASES
+
+import java.util.*;
+public class Solution {
+    public static List< Integer > sortedArray(int []a, int []b) {
+        int n = a.length;
+        int m = b.length;
+        
+        ArrayList<Integer>ans = new ArrayList<>();
+        HashSet<Integer>hs = new HashSet<>();
+
+        for(int i = 0; i < n; i++){
+            if(!hs.contains(a[i])){
+                hs.add(a[i]);
+            }
+        }
+
+        for(int j =0;  j < m; j++){
+            if(!hs.contains(b[j])){
+                hs.add(b[j]);
+            }
+        }
+
+
+       for(int it : hs){
+           ans.add(it);
+       }
+
+        return ans;
+    }
+}
+
+
+
+//METHOD - 2 : —————> TC :  o(m+n) ;    SC : o(1)     // if u are considering ans array then Sc: O(m+n)
+Merge SORT Technique
+
+
+
+import java.util.*;
+public class Solution {
+    public static List< Integer > sortedArray(int []a, int []b) {
+        int n = a.length;
+        int m = b.length;
+        
+        ArrayList<Integer>ans = new ArrayList<>();
+        
+        int i =0 ;
+        int j = 0;
+
+        while(i < n && j < m){
+            if(a[i] <= b [j]){
+                if(ans.size() == 0 || ans.get(ans.size()-1) != a[i]){
+                    ans.add(a[i]);
+                    
+                }  
+                i++;      
+            }
+            else{
+                if(ans.size() == 0 || ans.get(ans.size()-1) != b[j]){
+                    ans.add(b[j]);
+                    
+                }
+                j++;
+            }
+        }
+
+        while( i < n){
+            if(ans.get(ans.size()-1) != a[i]){
+                    ans.add(a[i]);
+                    
+            }  
+            i++;
+        }
+
+        while(j < m){
+             if(ans.get(ans.size()-1) != b[j]){
+                    ans.add(b[j]);
+                    
+            }
+            j++;
+        }
+
+
+        return ans;
+    }
+}
+
+
+
+
+
+
+=====================================================================================================================================
