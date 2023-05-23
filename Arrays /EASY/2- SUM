@@ -1,6 +1,7 @@
 2- SUM
 =====================================================================================================================================
-//Problem Link  =========>. https://leetcode.com/problems/two-sum/
+//Problem Link    =========> https://leetcode.com/problems/two-sum/
+  CodeStudio      =========> https://www.codingninjas.com/codestudio/problems/reading_6845742
 
 =====================================================================================================================================
 
@@ -30,7 +31,65 @@ Output: [0,1]
 
 =====================================================================================================================================
 
-//CODE —————> TC :  o()  ;    SC : o()
+//CODE —————> TC :  O(N) + O(N*logN), where N = size of the array , logN  for sorting ;    SC : o(1)
+
+//Code for CodeStudio
+
+
+import java.util.*;
+
+public class Solution {
+    public static String read(int n, int []book, int target){
+
+        
+        Arrays.sort(book);
+        int i = 0;
+        int j = n-1;
+        while(i <= j){
+            int sum = book[i] + book[j];
+
+            if(sum == target){
+                return "YES";
+            }           
+            else if(sum < target){
+                i++;
+            }
+            else{
+                j--;
+            }
+        }
+
+        return "NO";
+    }
+}
+
+
+
+//Code for LEETCODE
+//CODE —————> TC :  o(N)  ;    SC : o(N)     //SC why N beacuse in hashmap we are storing
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer , Integer > hm = new HashMap ();
+
+        for(int i = 0 ; i < nums.length; i++){
+            int num = nums[i];
+            int needMore = target - num;
+            if(hm.containsKey(needMore)){
+                return new int[]{hm.get(needMore), i};
+            }
+            else{
+                hm.put(num, i);
+            }
+        }
+
+        return null;
+        
+        
+
+     
+    }
+}
 
 
 =====================================================================================================================================
