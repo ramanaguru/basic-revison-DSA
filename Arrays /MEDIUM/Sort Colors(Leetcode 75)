@@ -1,0 +1,86 @@
+Sort Colors(Leetcode 75)
+=====================================================================================================================================
+
+//Problem Link  =========> https://leetcode.com/problems/sort-colors/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+You must solve this problem without using the library's sort function.
+ 
+
+Example 1:
+Input: nums = [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
+
+
+Example 2:
+Input: nums = [2,0,1]
+Output: [0,1,2]
+
+
+=====================================================================================================================================
+
+DUTCH NATIONAL FLAG
+
+=====================================================================================================================================
+ Rules to remember DUTCH NATIONAL FLAG
+
+  [0        low-1]   ----> 0      =====> extreme Left
+  [low      mid-1]   ----> 1
+  [high +1   n -1]   ----> 2      =====> extreme Right
+
+
+
+Intution   ===> Assume given input as ---> mid to high will be unsorted remember
+
+   0 0 0 0 0  1   1 1 1 1  2     1  2 0 1 2 2        2 2 2
+   0         low          mid-1           high          n-1
+
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(NlogN)  ;    SC : o(1)    --------------------> Arrays.sort(nums);    You can solve in this method but TC will greater
+=====================================================================================================================================
+
+
+//CODE —————> TC :  o(N)  ;    SC : o(1)  -------> Used DUTCH NATIONAL FLAG
+
+class Solution {
+    public void sortColors(int[] nums) {
+        int n = nums.length;
+
+        int low = 0;
+        int mid = 0;
+        int high = n-1;
+
+        while(mid <= high){
+            if(nums[mid] == 0 ){
+                swap(low, mid, nums);
+                low++;
+                mid++;
+            }
+            else if(nums[mid] == 1){
+                mid++;
+            }
+            else{
+               swap(high, mid, nums);
+               high--;
+            }
+        }
+        
+    }
+
+    public void swap(int i, int j, int arr[]){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+
+
+=====================================================================================================================================
