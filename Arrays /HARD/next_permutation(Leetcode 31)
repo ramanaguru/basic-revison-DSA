@@ -1,0 +1,82 @@
+next_permutation : find next lexicographically greater permutation  (Leetcode 31)
+=====================================================================================================================================
+//Problem Link  =========> https://leetcode.com/problems/next-permutation/
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+A permutation of an array of integers is an arrangement of its members into a sequence or linear order.
+For example, for arr = [1,2,3], the following are all the permutations of arr: [1,2,3], [1,3,2], [2, 1, 3], [2, 3, 1], [3,1,2], [3,2,1].
+
+For example, the next permutation of arr = [1,2,3] is [1,3,2].
+Similarly, the next permutation of arr = [2,3,1] is [3,1,2].
+While the next permutation of arr = [3,2,1] is [1,2,3] because [3,2,1] does not have a lexicographical larger rearrangement.
+Given an array of integers nums, find the next permutation of nums.
+
+The replacement must be in place and use only constant extra memory.
+
+Example 1:
+Input: nums = [1,2,3]
+Output: [1,3,2]
+
+Example 2:
+Input: nums = [3,2,1]
+Output: [1,2,3]
+
+Example 3:
+Input: nums = [1,1,5]
+Output: [1,5,1]
+ 
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(1)
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums.length == 1) return ;
+
+        //Find the break point(break point --> from where it eactly decreased)
+        int idx = -1;
+        int n = nums.length;
+        for(int i = n-2 ; i >= 0; i--){
+            if(nums[i] < nums[i+1]){
+                idx = i;
+                break;
+            }
+        }
+        // find the nextgreater element(i.e ==> breakpoint number we found right ,
+        // now we should find next immediate great number than the breakpoint number)
+
+        int j = n-1;
+        if(idx >= 0){        
+            while(nums[j] <= nums[idx]){
+                j--;
+            }
+
+            swap(nums,idx, j);   // swap the breakpoint and nextgreater we found
+        }
+
+        reverse(nums, idx+1);  // after swap, reverse after breakpoint i.e. i+ 1
+
+    }
+    private void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+   public void reverse(int nums[], int start){
+        int end = nums.length-1;
+
+        while(start <= end){
+            swap(nums,start, end);
+            start++;
+            end--;
+        }
+
+    }
+}
+
+
+=====================================================================================================================================
