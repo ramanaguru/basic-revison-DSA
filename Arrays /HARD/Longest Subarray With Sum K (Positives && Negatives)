@@ -1,0 +1,80 @@
+Longest Subarray With Sum K (Positives && Negatives)
+=====================================================================================================================================
+//Problem Link  =========> https://www.codingninjas.com/codestudio/problems/longest-subarray-with-sum-k_5713505
+
+=====================================================================================================================================
+
+//Problem Statement :
+ 
+ Given an array and a sum k, we need to print the length of the longest subarray that sums to k.
+
+Example 1:
+Input Format: N = 3, k = 5, array[] = {2,3,5}
+Result: 2
+
+Explanation: The longest subarray with sum 5 is {2, 3}. And its length is 2.
+
+Example 2:
+Input Format: N = 3, k = 1, array[] = {-1, 1, 1}
+Result: 3
+
+Explanation: The longest subarray with sum 1 is {-1, 1, 1}. And its length is 3.
+   
+
+=====================================================================================================================================
+
+//Observation
+
+1.calculate the prefix sum till index i
+2.if the sum = k, update the maxLen
+3.calculate the sum of remaining part i.e. x-k
+4.Calculate the length and update maxLen
+5.Finally, update the map checking the conditions
+Time Complexity: O(N) or O(N*logN) depending on which map data structure we are using, where N = size of the array.
+
+Reason: For example, if we are using an unordered_map data structure in C++ the time complexity will be O(N)(though in the worst case,
+unordered_map takes O(N) to find an element and the time complexity becomes O(N2)) but if we are using a map data structure, the time complexity will be O(N*logN). 
+The least complexity will be O(N) as we are using a loop to traverse the array.
+
+
+
+//CODE —————> TC :  o(N) or o(N * logN)  ;    SC : o(N)
+
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int getLongestSubarray(int []nums, int k) {
+		int n = nums.length;
+
+		int sum = 0;
+		int maxLen = 0;
+
+		HashMap<Integer, Integer> preSum = new HashMap<>();
+
+		for(int i  = 0; i < n; i++){
+			sum += nums[i];
+			
+			if(sum == k){
+				maxLen = Math.max(maxLen, i+1);
+			}
+
+			int rem = sum - k;
+
+			if(preSum.containsKey(rem)){
+				int len = i - preSum.get(rem);
+				maxLen = Math.max(maxLen, len);
+
+			}
+
+			if(!preSum.containsKey(sum)){
+				preSum.put(sum, i);
+			}
+		}
+
+		return maxLen;
+		
+	}
+}
+
+=====================================================================================================================================
