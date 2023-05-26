@@ -1,0 +1,62 @@
+Subarray Sum Equals K (Leetcode 560)
+=====================================================================================================================================
+//Problem Link  =========> https://leetcode.com/problems/subarray-sum-equals-k/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+ 
+ Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+ A subarray is a contiguous non-empty sequence of elements within an array.
+
+Example 1:
+Input: nums = [1,1,1], k = 2
+Output: 2
+
+
+Example 2:
+Input: nums = [1,2,3], k = 3
+Output: 2
+   
+
+=====================================================================================================================================
+
+Time Complexity: O(N) or O(N*logN) depending on which map data structure we are using, where N = size of the array.
+Reason: For example, if we are using an unordered_map data structure in C++ the time complexity will be O(N) but if we are using a map data structure, the time complexity will be O(N*logN). 
+The least complexity will be O(N) as we are using a loop to traverse the array.
+
+//CODE —————> TC :  o(N)  or O(N*logN)   ;    SC : o(N)
+
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int n = nums.length;
+
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        int sum = 0;
+        int ans = 0; 
+
+        hm.put(0,1);
+
+        for(int i  = 0; i < n; i++){
+            sum += nums[i];
+
+            if(hm.containsKey(sum - k)){
+                ans += hm.get(sum-k);
+            }
+
+            
+            if(!hm.containsKey(sum)){
+                hm.put(sum , 1);
+            }
+            else{
+                hm.put(sum, hm.get(sum) +1);
+            }
+        }
+
+        return ans;
+    }
+}
+
+
+=====================================================================================================================================
