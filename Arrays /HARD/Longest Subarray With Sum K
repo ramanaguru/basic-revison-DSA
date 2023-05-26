@@ -1,0 +1,67 @@
+Longest Subarray With Sum K
+=====================================================================================================================================
+//Problem Link  =========>  https://www.codingninjas.com/codestudio/problems/longest-subarray-with-sum-k_6682399
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+ Given an array and a sum k, we need to print the length of the longest subarray that sums to k.
+
+
+Example 1:
+
+Input Format: N = 3, k = 5, array[] = {2,3,5}
+Result: 2
+
+Explanation: The longest subarray with sum 5 is {2, 3}. And its length is 2.
+
+Example 2:
+
+Input Format: N = 5, k = 10, array[] = {2,3,5,1,9}
+Result: 3
+
+Explanation: The longest subarray with sum 10 is {2, 3, 5}. And its length is 3.
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(2 * N)  ;    SC : o(1)
+
+Time Complexity: O(2 * N), where N = size of the given array.
+Reason: The outer while loop i.e. the right pointer can move up to index n-1(the last index). Now, the inner while loop
+i.e. the left pointer can move up to the right pointer at most. So, every time the inner loop does not run for n times rather it can run for n times in total. So, the time complexity will be O(2 * N) instead of O(N2).
+
+Space Complexity: O(1) as we are not using any extra space.
+
+
+public class Solution {
+    public static int longestSubarrayWithSumK(int []nums, long k) {
+        int n = nums.length;
+        long  sum = nums[0];
+
+        int left  = 0;
+        int right = 0;
+
+        int maxLen = 0;
+
+        while (right < n){
+            while(left <= right && sum > k){
+                sum-=nums[left];
+                left++;
+            }
+            if(sum == k){
+                maxLen = Math.max(maxLen,  right - left +1);
+            }
+
+            right++;
+
+            if(right < n){
+                sum += nums[right];                
+            }
+        }
+
+        return maxLen; 
+    }
+}
+
+=====================================================================================================================================
