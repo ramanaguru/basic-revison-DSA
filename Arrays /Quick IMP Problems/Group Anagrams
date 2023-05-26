@@ -1,0 +1,53 @@
+//Problem Link  =========>  https://leetcode.com/problems/group-anagrams/submissions/957551866/
+
+
+//Q) 49. Group Anagrams 
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        //base condition
+        if(strs == null || strs.length == 0){
+            return new ArrayList<>();
+        }
+
+        //create Hashmap for the count of the current string and check
+        HashMap<String, List<String>> freqmap = new HashMap<>();
+        for(String str : strs){
+            //call a function to check the freq of the curr string
+            String freqcheck = call_checkfunc(str);
+
+            if(freqmap.containsKey(freqcheck)){
+                freqmap.get(freqcheck).add(str);
+
+            }
+            else{
+                ArrayList<String>templist = new ArrayList<>();
+                templist.add(str);
+                freqmap.put(freqcheck,templist);
+            }
+        }
+
+        return new ArrayList<>(freqmap.values());
+        
+    }
+    
+    private String call_checkfunc(String str){
+        int freq[] = new int[26];
+
+        for(char ch :str.toCharArray()){       
+            freq[ch - 'a']++;
+        }
+   
+        StringBuilder sb= new StringBuilder("");
+        char ch = 'a' ;
+
+        for(int i : freq){
+        sb.append(ch);
+        sb.append(i);
+
+        }
+
+       return  sb.toString();
+
+    }
+}
