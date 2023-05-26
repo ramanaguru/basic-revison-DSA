@@ -1,0 +1,58 @@
+Subarrays with XOR ‘K’
+=====================================================================================================================================
+//Problem Link  =========>  https://www.codingninjas.com/codestudio/problems/subarrays-with-xor-k_6826258
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+Given an array of integers A and an integer B. Find the total number of subarrays having bitwise XOR of all elements equal to k.
+
+Example 1:
+
+Input Format: A = [4, 2, 2, 6, 4] , k = 6
+Result: 4
+Explanation: The subarrays having XOR of their elements as 6 are  [4, 2], [4, 2, 2, 6, 4], [2, 2, 6], [6]
+
+Example 2:
+
+Input Format: A = [5, 6, 7, 8, 9], k = 5
+Result: 2
+Explanation: The subarrays having XOR of their elements as 5 are [5] and [5, 6, 7, 8, 9]
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N) or o(N * log N)  ;    SC : o(N)
+
+import java.util.*;
+
+public class Solution {
+    public static int subarraysWithSumK(int []nums, int k) {
+        int n  = nums.length;
+        HashMap<Integer, Integer> hm = new HashMap<>();
+
+        hm.put(0,1);
+        int ans = 0;
+        int xor = 0;
+
+        for(int i = 0 ; i < n; i++){
+            xor ^= nums[i];
+
+            if(hm.containsKey(xor ^ k)){
+                ans += hm.get(xor ^ k);
+            }
+
+            if(!hm.containsKey(xor)){
+                hm.put(xor, 1);
+            }
+            else{
+                hm.put(xor, hm.get(xor)+1);
+            }
+        }
+
+        return ans;
+    }
+}
+
+
+=====================================================================================================================================
