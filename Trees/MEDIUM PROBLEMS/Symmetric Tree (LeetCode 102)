@@ -1,0 +1,46 @@
+ Symmetric Tree (LeetCode 101)
+=====================================================================================================================================
+//Problem Link  =========>  https://leetcode.com/problems/symmetric-tree/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+A symmetrical binary tree is a tree that forms a mirror of itself around the center. 
+In other words, every node in the left subtree will have a mirror image in the right subtree.
+   
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(N)
+
+
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(check_Symmetric(root.left, root.right)){     
+            return true;
+        }
+
+        return false;
+        
+    }
+
+    public static boolean check_Symmetric(TreeNode A , TreeNode B){
+        if(A == null && B == null){
+            return true;
+        }
+        else if(A == null && B!= null){
+            return false;
+        }
+        else if(A != null && B == null){
+            return false;
+        }
+        
+
+        return A.val == B.val && check_Symmetric(A.left, B.right) && check_Symmetric(A.right, B.left);
+    }
+}
+
+=====================================================================================================================================
