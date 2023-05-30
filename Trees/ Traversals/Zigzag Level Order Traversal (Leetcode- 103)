@@ -1,0 +1,79 @@
+ Zigzag Level Order Traversal (Leetcode- 103)
+ =====================================================================================================================================
+//Problem Link  =========>  https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, 
+then right to left for the next level and alternate between).
+ 
+Example 1:
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[20,9],[15,7]]
+
+
+Example 2:
+Input: root = [1]
+Output: [[1]]
+
+
+Example 3:
+Input: root = []
+Output: []
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(N)
+
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+
+        List<List<Integer>> ans = new ArrayList<>();
+
+        if(root == null) return ans;
+
+        Queue<TreeNode> q = new LinkedList();
+
+        q.add(root);
+        int level = 0;
+
+        while(!q.isEmpty()){
+
+            int n = q.size();
+            List<Integer> temp = new ArrayList<>();
+
+            for(int i = 1; i <= n; i++){
+                TreeNode k = q.peek();
+
+                q.remove();
+
+                if(k.left!=null){
+                    q.add(k.left);
+                }
+                if(k.right!=null){
+                    q.add(k.right);
+                }
+
+                temp.add(k.val);
+            }
+
+            if(level%2 == 1){
+                Collections.reverse(temp);
+            }
+
+            level++;
+
+            ans.add(temp);
+
+        }
+
+        return ans;
+        
+    }
+}
+
+
+=====================================================================================================================================
