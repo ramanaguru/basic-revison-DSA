@@ -39,10 +39,10 @@ class Solution {
         q.offer(new Tuple(root, 0 ,0));
 
         while(!q.isEmpty()){
-            Tuple cur = q.poll();
-            TreeNode node = cur.node;
-            int x = cur.row; // vertical
-            int y = cur.col; // level
+            Tuple tuple = q.poll();
+            TreeNode node = tuple.node;
+            int x = tuple.row;
+            int y = tuple.col;
 
             if(!map.containsKey(x)){
                 map.put(x , new TreeMap<>());
