@@ -1,0 +1,51 @@
+Binary Tree Right Side View(Letcode 199)
+=====================================================================================================================================
+//Problem Link  =========>   https://leetcode.com/problems/binary-tree-right-side-view/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+  Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+ 
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(H)
+
+
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+
+        ArrayList<Integer>ans = new ArrayList<>();
+         if(root == null){
+            return ans;
+        }
+        
+        f(root, 0, ans);
+
+
+        return ans;
+        
+    }
+
+    public void f(TreeNode root, int level, ArrayList<Integer>ans ){
+        if(root == null){
+            return;
+        }
+
+        if(level == ans.size()){
+            ans.add(root.val);
+        }
+
+        f(root.right, level+1, ans);
+        f(root.left, level+1, ans);
+        
+    }
+}
+
+
+
+=====================================================================================================================================
