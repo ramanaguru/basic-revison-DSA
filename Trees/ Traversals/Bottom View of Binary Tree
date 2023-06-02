@@ -1,0 +1,59 @@
+Bottom View of Binary Tree(Code ninjas)
+=====================================================================================================================================
+//Problem Link  =========>    https://www.codingninjas.com/codestudio/problems/bottom-view-of-binary-tree_893110
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+  
+  Given a binary tree, print the bottom view from left to right. A node is included in the bottom view if it can be seen when we look at the tree from the bottom
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(N)
+
+
+class Pair{
+	BinaryTreeNode node;
+	int vd ;
+	
+	Pair(BinaryTreeNode node, int vd){
+		this.node = node;
+		this.vd = vd; //verticalDistance or vertical level
+	}
+}
+public class Solution {
+	public static ArrayList<Integer> bottomView(BinaryTreeNode root) {
+		ArrayList<Integer>ans = new ArrayList<>();
+		if(root == null)return ans;
+		TreeMap<Integer, Integer> map = new TreeMap<>();    // Treemap data structure we construct5 here look like vd , node.val
+		Queue<Pair>q = new LinkedList();                    // queue looks like <ndoe , vd> same code for Topview but slight changes
+		q.add(new Pair(root, 0));
+		while(!q.isEmpty()){
+			Pair it = q.poll();
+			BinaryTreeNode temp = it.node;
+			int vd = it.vd;
+			
+			
+			map.put(vd, temp.val);
+			
+			if(temp.left != null){
+				q.add(new Pair(temp.left,  vd - 1));
+			}
+			if(temp.right != null){
+				q.add(new Pair(temp.right, vd + 1));
+			}
+		}
+
+
+		for(Map.Entry<Integer, Integer> out : map.entrySet()){
+			ans.add(out.getValue());
+		}
+
+		return ans;
+	}
+}
+
+
+=====================================================================================================================================
