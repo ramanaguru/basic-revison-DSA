@@ -1,0 +1,50 @@
+Left View Of a Binary Tree(CodingNinjas)
+=====================================================================================================================================
+//Problem Link  =========>   https://www.codingninjas.com/codestudio/problems/left-view-of-a-binary-tree_920519
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+Given a Binary Tree, find the Left view of it. 
+The left view of a Binary Tree is a set of nodes visible when the tree is viewed from the left side.
+
+
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(H)
+
+public class Solution 
+{
+    public static ArrayList<Integer> getLeftView(TreeNode<Integer> root) 
+    {
+        ArrayList<Integer>ans = new ArrayList<>();
+         if(root == null){
+            return ans;
+        }
+        
+        f(root, 0, ans);
+
+
+        return ans;
+    }
+    public static void f(TreeNode<Integer> root, int level, ArrayList<Integer>ans ){
+        if(root == null){
+            return;
+        }
+
+        if(level == ans.size()){
+            ans.add(root.data);
+        }
+
+        f(root.left, level+1, ans);
+        f(root.right, level+1, ans);
+        
+        
+    }
+}
+
+
+
+=====================================================================================================================================
