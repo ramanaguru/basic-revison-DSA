@@ -1,0 +1,39 @@
+Implement Upper Bound
+=====================================================================================================================================
+//Problem Link  =========>    https://www.codingninjas.com/codestudio/problems/implement-upper-bound_8165383
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+   Click the Link and see please , you do understand
+=====================================================================================================================================
+
+//CODE —————> TC :  o(logN)  ;    SC : o(1)
+
+
+public class Solution {
+    public static int upperBound(int []arr, int x, int n){
+        int ans = n;
+
+        int low = 0;
+        int high = n-1;
+
+        while(low <= high){
+            int mid = (low + high)/2;
+
+            if(arr[mid] > x){
+                ans = mid;
+                high = mid - 1;
+            }
+            else {
+                low = mid+1;
+            }
+           
+        }
+
+        return ans;  
+    }
+}
+
+=====================================================================================================================================
