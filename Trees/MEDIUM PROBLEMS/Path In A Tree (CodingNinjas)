@@ -1,0 +1,65 @@
+Path In A Tree (CodingNinjas)
+=====================================================================================================================================
+//Problem Link  =========>   https://www.codingninjas.com/codestudio/problems/path-in-a-tree_3843990
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+ 
+ We are given a binary tree T and a node X. We need to print a path from the root of the tree to the node.
+ 
+ 
+Sample Input 1 : (check diagram in problem link)
+2 Test case
+
+1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+x = 7
+
+3 2 1 -1 -1 -1 -1
+x = 1
+
+
+Sample Output 1 :
+1 3 7
+3 1
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(N)
+
+
+public class Solution {
+    public static ArrayList<Integer> pathInATree(TreeNode root, int x) {
+        ArrayList<Integer>arr = new ArrayList<>();
+
+        if(root == null) return arr;
+
+        getPath(root, arr, x);
+
+        return arr;
+        
+
+    }
+
+    public static boolean getPath(TreeNode root, ArrayList<Integer>arr, int x){
+        if(root == null) return false;
+
+        arr.add(root.data);
+
+        if(root.data == x){
+            return true;
+        }
+
+        if(getPath(root.left, arr, x) || getPath(root.right, arr, x)){
+            return true;
+        }
+
+        arr.remove(arr.size()-1);
+        return false;
+    }
+}
+
+
+
+=====================================================================================================================================
