@@ -1,0 +1,90 @@
+Maximum Width of Binary Tree (Leetcode  662)
+=====================================================================================================================================
+//Problem Link  =========>      https://leetcode.com/problems/maximum-width-of-binary-tree/description/
+ 
+=====================================================================================================================================
+
+//Problem Statement :
+  
+ Given the root of a binary tree, return the maximum width of the given tree.
+The maximum width of a tree is the maximum width among all levels.
+The width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes that would be present in a complete binary tree 
+extending down to that level are also counted into the length calculation.
+It is guaranteed that the answer will in the range of a 32-bit signed integer.
+
+=====================================================================================================================================
+
+APPROACH : 
+
+As our final answer is a range of nodes in a level, i,e rightMost- leftMost+1; this strategy will not affect the answer and at the same time prevent the integer overflow case.
+
+The algorithm approach can be stated as:
+
+We take a queue and push the root node along with index 0.
+We traverse the tree using a level order traversal.
+In the level order traversal we set another loop to run for the size of the queue, so that we visit the same level nodes inside it.
+Before a level starts, we use a variable(say curMin) to store the index of the first node.
+We assign an index to every node, and to its children as described above.
+When the inner loop is at the first node of a level, we store its index in another variable(sayleftMost)
+When the inner loop is at the last node of a level, we store its index in another variable(say rightMost)
+After a level  in the outer loop, we calculate the width of the level as (rightMost – leftMost +1).
+We return the maximum width as the answer.
+
+
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(N)
+
+
+class Pair{
+    TreeNode node;
+    int  num;
+
+    public Pair(TreeNode node, int num){
+        this.node = node;
+        this.num = num;
+    }
+ }
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
+        if(root == null) return 0;
+        int ans = 0;
+        Queue<Pair>q = new LinkedList();
+        q.add(new Pair(root,0));
+
+        while(!q.isEmpty()){
+
+            int size = q.size();
+            int mini = q.peek().num;
+            int first = 0 , last = 0;
+            
+            for(int i = 0; i < size; i++){
+            
+                int curr = q.peek().num - mini;
+                TreeNode node = q.peek().node;
+                
+                q.poll();
+                
+                if(i == 0) first = curr;
+                if(i == size - 1) last = curr;
+
+                if(node.left != null){
+                    q.add(new Pair(node.left, curr * 2 + 1));
+                }
+                if(node.right != null){
+                    q.add(new Pair(node.right, curr * 2 + 2));
+                }
+
+                ans = Math.max(ans, (last - first + 1));
+
+            }
+
+        }
+
+        return ans;
+    }
+}
+
+
+=====================================================================================================================================
