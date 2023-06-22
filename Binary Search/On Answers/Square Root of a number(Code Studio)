@@ -1,0 +1,59 @@
+Square Root of a number(Code Studio)
+
+=====================================================================================================================================
+//Problem Link  =========>  https://www.codingninjas.com/codestudio/problems/square-root-integral_893351
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+
+Given an integer x, find the square root of x. If x is not a perfect square, then return floor(√x).
+
+
+Example 1:
+Input:  x = 5
+Output: 2
+
+Explanation: Since, 5 is not a perfect square, floor of square_root of 5 is 2.
+
+Example 2:
+Input:  x = 4
+Output: 2
+
+Explanation: Since, 4 is a perfect square, so its square root is 2.
+   
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(logN)  ;    SC : o(1)
+
+public class Solution {
+
+	public static int sqrtN(long N) {
+		long low = 1;
+		long high = N;
+		long ans = 1;
+
+
+		while(low <= high){
+			long mid = (low + high)/2;
+			long val = mid * mid;
+
+			if(val <= N){
+				ans = mid;
+				low = mid + 1;
+
+			}
+			else{
+				high = mid -1;
+			}
+
+		}
+
+		return (int)ans;
+	}
+}
+
+
+=====================================================================================================================================
