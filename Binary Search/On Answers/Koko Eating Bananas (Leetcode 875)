@@ -1,0 +1,81 @@
+Koko Eating Bananas (Leetcode 875)
+
+=====================================================================================================================================
+//Problem Link  =========>  https://leetcode.com/problems/koko-eating-bananas/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile.
+If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+Return the minimum integer k such that she can eat all the bananas within h hours.
+ 
+
+Example 1:
+Input: piles = [3,6,7,11], h = 8
+Output: 4
+
+Example 2:
+Input: piles = [30,11,23,4,20], h = 5
+Output: 30
+
+Example 3:
+Input: piles = [30,11,23,4,20], h = 6
+Output: 23   
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N * logN) [===> To be specific O(NlogM), where M = Max element in array] ;    SC : o(1)
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int n = piles.length;
+
+        int low  = 1;
+        int high = find_MAXIele(piles);
+        int ans = Integer.MAX_VALUE;
+
+        while(low <= high){
+            int mid = (low + high)/2;
+
+            int total_Hrs = check(piles, mid);
+
+            if(total_Hrs <= h){
+                ans = mid;
+                high = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+
+    }
+
+    public int find_MAXIele(int piles[]){
+        int maxi = Integer.MIN_VALUE;
+
+        for(int i = 0; i < piles.length ; i++){
+            maxi = Math.max(maxi, piles[i]);
+        }
+
+        return maxi;
+    }
+
+    public int check(int piles[], int hr){
+        int total = 0;
+
+        for(int i = 0; i < piles.length; i++){
+            total += Math.ceil((double)piles[i] / (double)hr);
+        }
+
+        return total;
+    }
+}
+
+
+=====================================================================================================================================
