@@ -1,0 +1,37 @@
+Reverse Linked List (LeetCode - 206)
+=====================================================================================================================================
+//Problem Link  =========>    https://leetcode.com/problems/reverse-linked-list/
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+For Examples : click the above link to see
+
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(1)
+
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode h1 = head;
+        ListNode h2 = null;
+
+        while(h1 != null){
+            ListNode temp = h1;
+            h1 = h1.next;
+            temp.next = h2;
+            h2 = temp;
+        }
+
+
+        return h2;
+    }
+}
+
+=====================================================================================================================================
