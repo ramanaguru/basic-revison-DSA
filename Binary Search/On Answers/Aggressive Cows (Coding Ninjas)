@@ -1,0 +1,74 @@
+Aggressive Cows (Coding Ninjas)
+=====================================================================================================================================
+//Problem Link  =========> https://www.codingninjas.com/studio/problems/aggressive-cows_1082559
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+There is a new barn with N stalls and C cows. The stalls are located on a straight line at positions x1,….,xN (0 <= xi <= 1,000,000,000). 
+We want to assign the cows to the stalls, such that the minimum distance between any two of them is as large as possible. What is the largest minimum distance?
+
+Examples:
+Input: No of stalls = 5 
+       Array: {1,2,8,4,9}
+       And number of cows: 3
+
+Output: One integer, the largest minimum distance 3
+
+
+=====================================================================================================================================
+
+//CODE —————> TC :  O(N*log(M)).    //Reason: For binary search in a space of M, O(log(M))  and for each search, we iterate over max N stalls to check. O(N).  ; 
+              SC : o(1)
+
+
+import java.util.Arrays;
+
+public class Solution {
+    public static int aggressiveCows(int []stalls, int k) {
+        
+        Arrays.sort(stalls);
+
+        int n = stalls.length;
+
+        int low = 0;
+        int high = stalls[n-1] - stalls[0];
+
+        int ans = -1;
+
+        while(low <= high){
+            int mid = (low + high)/2;
+
+            if(can_We_place(stalls,mid,k)){
+                ans = mid;
+                low = mid+1;
+            }
+            else{
+                high = mid -1;
+            }
+        }
+
+        return ans;
+    }
+
+    private static boolean can_We_place(int[] stalls, int distance , int cows){
+        int no_of_coWs = 1;
+        int last_pos = stalls[0];
+
+        for(int i = 1 ; i < stalls.length; i++){
+            if(stalls[i] - last_pos >= distance){
+                no_of_coWs++;
+                last_pos = stalls[i];
+            }
+
+            if(no_of_coWs >= cows) return true;
+        }
+
+
+        return false;
+    }
+}
+
+
+=====================================================================================================================================
