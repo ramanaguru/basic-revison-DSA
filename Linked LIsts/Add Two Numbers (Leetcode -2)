@@ -30,7 +30,7 @@ Output: [8,9,9,9,0,0,0,1]
 
 =====================================================================================================================================
 
-//CODE —————> TC :  o(N)  ;    SC : o(1)
+//CODE —————> TC :  O(max(N, M)) ;    SC : O(max(N, M))        // where N is l1 length and  M is l2  length
 
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
