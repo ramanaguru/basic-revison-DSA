@@ -1,0 +1,94 @@
+Sort List (LeetCode 148)
+=====================================================================================================================================
+//Problem Link  =========>  https://leetcode.com/problems/sort-list/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+Given the head of a linked list, return the list after sorting it in ascending order.
+
+Example 1:
+Input: head = [4,2,1,3]
+Output: [1,2,3,4]
+
+Example 2:
+Input: head = [-1,5,3,4,0]
+Output: [-1,0,3,4,5]
+
+Example 3:
+Input: head = []
+Output: []  
+
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N logN)  ;    SC : o(logN)  space complexity of the given code is O(log n), where n is the number of nodes in the linked list.
+
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null) return head;
+        return mergesort(head);
+    }
+    public ListNode mergesort(ListNode head){
+        if(head == null || head.next == null) return head;
+
+        ListNode mid = findMiddle(head);
+
+        ListNode rightHead = mid.next;
+
+        mid.next = null;
+        ListNode newleft = mergesort(head);
+        ListNode newright = mergesort(rightHead);
+
+        return merge(newleft, newright);
+    }
+    public ListNode findMiddle(ListNode head){
+        if(head == null || head.next == null) return head;
+
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while(fast!= null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+        }
+
+        return slow;
+    }
+
+    public ListNode merge(ListNode l1, ListNode l2){
+        ListNode ans = new ListNode(-1);
+        ListNode temp = ans;
+
+        while(l1 != null && l2 != null){
+            if(l1.val <= l2.val){
+                temp.next = l1;
+                temp = temp.next;
+                l1 = l1.next;
+                
+            }
+            else if(l2.val <= l1.val){
+                temp.next = l2;
+                temp = temp.next;
+                l2 = l2.next;
+                
+            }
+        }
+
+        if(l1 == null){
+            temp.next = l2;
+        }
+        if(l2 == null){
+            temp.next = l1;
+        }
+
+
+        return ans.next;
+    }
+
+}
+
+
+=====================================================================================================================================
