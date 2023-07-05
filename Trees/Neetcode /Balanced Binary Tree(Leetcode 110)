@@ -1,0 +1,51 @@
+Balanced Binary Tree(Leetcode 110)
+=====================================================================================================================================
+//Problem Link  =========> https://leetcode.com/problems/balanced-binary-tree/submissions/986663250/
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+Given a binary tree, determine if it is height-balanced. 
+
+
+//Height Balanced ------->  A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
+
+
+Example 1:
+Input: root = [3,9,20,null,null,15,7]
+Output: true
+
+Example 2:
+Input: root = [1,2,2,3,3,null,null,4,4]
+Output: false
+
+
+Example 3:
+Input: root = []
+Output: true
+   
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(Height)
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return check_function(root) != -1;
+    }
+
+    public int  check_function(TreeNode root){
+        if(root == null) return 0;
+
+        int left = check_function(root.left);
+        int right = check_function(root.right);
+        
+        if(left == -1 || right == -1) return -1;
+        if(Math.abs(left - right) > 1) return -1;
+
+        return 1 + Math.max(left , right);
+    }
+}
+
+=====================================================================================================================================
