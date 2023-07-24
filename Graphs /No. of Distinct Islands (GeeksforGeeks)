@@ -1,0 +1,73 @@
+No. of Distinct Islands (GeeksforGeeks)
+=====================================================================================================================================
+//Problem Link  =========>  https://practice.geeksforgeeks.org/problems/number-of-distinct-islands/1
+
+=====================================================================================================================================
+
+//Problem Statement :
+  
+Given a boolean 2D matrix grid of size n * m. You have to find the number of distinct islands where a group of connected 1s (horizontally or vertically) forms an island. 
+Two islands are considered to be distinct if and only if one island is not equal to another (not rotated or reflected).
+
+ For examples ==> Click the above Link 
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N * M * 4) + o(N * M)  ;    SC : o(N*M)
+
+class Solution {
+
+    int countDistinctIslands(int[][] grid) {
+       int n = grid.length;
+       int m = grid[0].length;
+       
+       boolean vis[][] = new boolean[n][m];
+      HashSet<ArrayList<ArrayList<Integer>>>hs = new HashSet<>();
+      
+       for(int i = 0; i < n; i++){
+           for(int j = 0; j < m; j++){
+               if(!vis[i][j]  && grid[i][j] == 1){
+                    ArrayList<ArrayList<Integer>>list = new ArrayList<>();
+                    dfs(i , j , grid, vis, list, i, j);
+                    hs.add(list);
+                    
+               }
+           }
+       }
+       
+       
+       return hs.size();
+    }
+    
+    public void dfs(int row, int col , int grid[][], boolean vis[][], ArrayList<ArrayList<Integer>>list, int baseRow, int baseCol){
+        vis[row][col] = true;
+        
+        int n = grid.length;
+        int m = grid[0].length;
+        
+        int dr[] = {-1, 0 , +1, 0};
+        int dc[] = { 0, +1, 0, -1};
+        
+        int r = row - baseRow;
+        int c = col - baseCol;
+        
+        ArrayList<Integer>ls = new ArrayList<>();
+        
+        ls.add(r);
+        ls.add(c);
+        list.add(ls);
+        
+        for(int i = 0; i < 4; i++){
+            int nrow = row + dr[i];
+            int ncol = col + dc[i];
+            
+            if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && vis[nrow][ncol] == false && grid[nrow][ncol] == 1){
+                dfs(nrow, ncol, grid, vis, list, baseRow, baseCol);
+            }
+        }
+        
+    }
+}
+
+
+=====================================================================================================================================
