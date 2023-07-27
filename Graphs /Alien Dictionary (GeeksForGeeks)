@@ -1,0 +1,113 @@
+Alien Dictionary (GeeksForGeeks)
+=====================================================================================================================================
+//Problem Link  =========>  https://practice.geeksforgeeks.org/problems/alien-dictionary/1
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+Given a sorted dictionary of an alien language having N words and k starting alphabets of standard dictionary. Find the order of characters in the alien language.
+Note: Many orders may be possible for a particular test case, thus you may return any valid order and output will be 1 if the order of string returned by the function is correct else 0 denoting incorrect string returned.
+ 
+Example 1:
+Input: 
+N = 5, K = 4
+
+dict = {"baa","abcd","abca","cab","cad"}
+
+Output:
+1
+
+
+Explanation:
+Here order of characters is 
+'b', 'd', 'a', 'c' Note that words are sorted 
+and in the given language "baa" comes before 
+"abcd", therefore 'b' is before 'a' in output.
+Similarly we can find other orders.
+
+
+For more Exapmle  : Please refer the  above link
+   
+
+=====================================================================================================================================
+//CODE
+
+Time Complexity: O(N*len)+O(K+E), where N is the number of words in the dictionary, ‘len’ is the length up to the index where the first inequality occurs, K = no. of nodes, and E = no. of edges.
+
+Space Complexity: O(K) + O(K)+O(K)+O(K) ~ O(4K), O(K) for the indegree array, and O(K) for the queue data structure used in BFS(where K = no.of nodes), O(K) for the answer array and O(K) for the adjacency list used in the algorithm.
+
+
+
+class Solution
+{
+    public String findOrder(String [] dict, int N, int K)
+    {
+        ArrayList<ArrayList<Integer>>adj = new ArrayList<>();
+        for(int i = 0 ; i < K; i++){
+            adj.add(new ArrayList<>());
+        }
+        
+        for(int i = 0 ; i < N -1; i++){
+            String  s1 = dict[i];
+            String  s2 = dict[i+1];
+            int len = Math.min(s1.length(), s2.length());
+            for(int j = 0; j < len ; j++){
+                if(s1.charAt(j) != s2.charAt(j)){
+                    adj.get(s1.charAt(j) - 'a').add(s2.charAt(j) - 'a');
+                    break;
+                }
+            }
+        }
+        
+        int topo[] = topoSort(K, adj);
+        
+        StringBuilder ans = new StringBuilder();
+        for(int i = 0 ; i < topo.length; i++){
+            ans.append((char) (topo[i] +'a'));
+        }
+        
+        return ans.toString();
+        
+    }
+    
+    public static int[] topoSort (int k , ArrayList<ArrayList<Integer>>adj){
+        //k is edges
+        int incoming_Edges[] = new int[k];
+        for(int i = 0 ; i < k; i++){
+            for(int j = 0; j < adj.get(i).size(); j++){
+                int v = adj.get(i).get(j);
+                incoming_Edges[v]++;
+            }
+        }
+        Queue<Integer>q = new LinkedList();
+        for(int i = 0 ; i < k ; i++){
+            if(incoming_Edges[i] == 0){
+                q.add(i);
+            }
+        }
+        
+        int ans[] = new int[k];
+        int idx = 0;
+        
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.remove();
+            ans[idx++] = node;
+            
+            for(int i = 0; i < adj.get(node).size(); i++){
+                int v = adj.get(node).get(i);
+                incoming_Edges[v]--;
+                if(incoming_Edges[v] == 0){
+                    q.add(v);
+                }
+            }
+            
+        }
+        
+        return ans;
+    }
+}
+
+
+=====================================================================================================================================
