@@ -35,7 +35,7 @@ class Solution {
     
         while(low <= high){
             int mid1 = (low + high)/2;
-            int mid2 = left - mid; 
+            int mid2 = left - mid1; 
 
             //l1 < r2 && l2 < r1
             int l1 , l2 , r1, r2;
