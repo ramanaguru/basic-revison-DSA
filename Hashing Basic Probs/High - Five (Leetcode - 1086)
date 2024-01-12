@@ -20,7 +20,7 @@ The average of the student with id = 2 is 88.6. But with integer division their 
 
 
 //CODE
-TC =====> O() ;   SC : O()
+TC =====> O(N log N) ;   SC : O(N)
 
 Why TREEMAP         ==> Because it internally sort the KEY
 WHY PRIORITY QUEUE  ==> To maintain the 5 top scores atlast as question states // {USING MAX_HEAP}
