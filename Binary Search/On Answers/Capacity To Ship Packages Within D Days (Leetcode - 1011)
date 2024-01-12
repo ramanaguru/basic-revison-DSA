@@ -1,0 +1,62 @@
+Capacity To Ship Packages Within D Days (Leetcode - 1011)
+=====================================================================================================================================
+//Problem Link  =========> https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+You are the owner of a Shipment company. You use conveyor belts to ship packages from one port to another. The packages must be shipped within ‘d’ days.
+The weights of the packages are given in an array ‘of weights’. The packages are loaded on the conveyor belts every day in the same order as they appear in the array.
+The loaded weights must not exceed the maximum weight capacity of the ship.
+Find out the least-weight capacity so that you can ship all the packages within ‘d’ days.
+   
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N * logN)   i.e O(N * log(high - low)  ;    SC : o(1)
+
+class Solution {
+    public int shipWithinDays(int[] weights, int days) {
+        int n = weights.length;
+        int low = Integer.MIN_VALUE;
+        int high = 0;
+
+        for(int i = 0; i < n; i++){
+            low = Math.max(low, weights[i]);
+            high += weights[i];
+        }
+
+        while(low <= high){
+            int mid = (low + high)/2;
+            int req_days = check(weights, mid);       //Checking (weights[] , current capacity can fit within this days)
+
+            if(req_days <= days){
+               high = mid -1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
+
+        return low;
+    }
+    public int check(int weights[], int total){
+        int no_of_days = 1;
+        int capacity = 0;
+
+        int n = weights.length;
+        for(int i = 0 ; i < n; i++){
+            if(capacity + weights[i] <= total){
+                capacity += weights[i];
+            }
+            else{
+                no_of_days++;
+                capacity = weights[i];
+            }
+        }
+        return no_of_days;
+    }
+}
+
+=====================================================================================================================================

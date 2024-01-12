@@ -30,8 +30,9 @@ Output: [1,5,1]
  
 
 =====================================================================================================================================
-
+// 2 versions 
 //CODE —————> TC :  o(N)  ;    SC : o(1)
+//VERSION ===> 1 (version -2 is more readable and easier with same TC and SC)  
 
 class Solution {
     public void nextPermutation(int[] nums) {
@@ -75,6 +76,66 @@ class Solution {
             end--;
         }
 
+    }
+}
+
+
+=====================================================================================================================================
+
+//CODE —————> TC :  o(N)  ;    SC : o(1)
+//Version ==> 2
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        if(n == 1){return;}
+
+        reverse(nums, 0 ,n-1);
+        if(isSorted(nums) == true){return;}
+
+        int index = 0 ;
+        for(int i = 1; i < n; i++){
+            if(nums[i] < nums[i-1]){
+                index = i;
+                break;
+            }
+        }
+
+        for(int i = 0; i < index; i++){
+            if(nums[i] > nums[index]){
+                swap(nums, i, index);
+                break;
+            }
+        }
+        reverse(nums,0 , index-1);
+        reverse(nums,0 , n-1);        
+    }
+
+    public void reverse(int nums[], int start, int end){
+        int left = start;
+        int right = end;
+        while(left < right){
+            swap(nums, left, right);
+            left++;
+            right--;
+        }
+    }
+
+    public void swap(int nums[], int i , int j){
+        int temp = nums[i];
+        nums[i]= nums[j];
+        nums[j] = temp;
+    }
+    public boolean isSorted(int nums[]){
+        boolean sorted = true;
+
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] < nums[i-1]){
+                sorted = false;
+            }
+        }
+
+        return sorted;
     }
 }
 

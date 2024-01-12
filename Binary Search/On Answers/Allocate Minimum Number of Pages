@@ -24,61 +24,65 @@ Calculate and return the minimum possible number. Return -1 if a valid assignmen
 
 
 import java.util.ArrayList;
-import java.util.*;
 public class Solution {
     public static int findPages(ArrayList<Integer> arr, int n, int m) {
 
-        int ans = -1;
-        
-        if(m > arr.size()) return -1;
-        
-        int low  = arr.get(0);
-        int high = 0;
+        //Edge case
 
-        for(int i = 0; i < arr.size() ; i++){
-            low = Math.min(low,arr.get(i));
-            high += arr.get(i);
+       if(m > n){
+           return -1; //if given students is greater than array size 
+       }  
+
+       //From Observation we came to know that search range is from maxi of the array  to the sum of the array {maxi ==> sum}
+
+       int low  = Integer.MAX_VALUE;
+       int high = 0;
+
+        for(int i = 0; i < n; i++){
+           low  = Math.min(low, arr.get(i));
+           high += arr.get(i);
         }
 
-        
-
+        int ans = 0;
         while(low <= high){
             int mid = (low + high)/2;
-            
-            if(check_Possible(arr, m, mid)){
+
+            if(check(arr, mid, m)){ 
+                // pass if condition is true
                 ans = mid;
-                high = mid - 1;
+                high = mid -1;
             }
             else{
                 low = mid + 1;
             }
         }
-
         return ans;
     }
 
-    public static boolean check_Possible(ArrayList<Integer>arr, int m, int pages){
-        int students = 1;
-        int allocate_PAge = 0;
+    public static boolean check(ArrayList<Integer>arr, int pages, int m){
+            int student = 1;
+            int pageCount = 0;
 
-        for(int i = 0; i < arr.size() ; i++){
-            
-            
-            if(allocate_PAge + arr.get(i) > pages){
-                students++;
-                allocate_PAge = arr.get(i);
+            // It iterates through the array of pages and checks if it's possible to allocate the pages in a way that doesn't exceed the 
 
-                if(allocate_PAge  > pages || students > m) return false;
-                
+            for(int i = 0; i < arr.size(); i++){
+                if(pageCount + arr.get(i) <= pages){
+                    pageCount += arr.get(i);
+                }
+                else{
+                    student++;
+                    pageCount = arr.get(i);
+
+                    //given pages per student and doesn't exceed the total number of students (m)
+
+                    if(pageCount > pages || student > m){  
+                        return false;
+                    }
+
+                }
             }
-            else{
-                allocate_PAge += arr.get(i);
-            }
-        }
 
-        return true;
+            return true; // if all satisfies return true
     }
 }
-
-
 =====================================================================================================================================

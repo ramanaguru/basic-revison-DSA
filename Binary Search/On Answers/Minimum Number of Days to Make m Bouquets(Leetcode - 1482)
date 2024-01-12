@@ -1,0 +1,84 @@
+Minimum Number of Days to Make m Bouquets(Leetcode - 1482)
+=====================================================================================================================================
+//Problem Link  =========> https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/description/
+
+=====================================================================================================================================
+
+//Problem Statement :
+
+ou are given ‘N’ roses and you are also given an array ‘arr’  where ‘arr[i]’  denotes that the ‘ith’ rose will bloom on the ‘arr[i]th’ day.
+You can only pick already bloomed roses that are adjacent to make a bouquet. You are also told that you require exactly ‘k’ adjacent bloomed roses to make a single bouquet.
+Find the minimum number of days required to make at least ‘m’ bouquets each containing ‘k’ roses. Return -1 if it is not possible.
+   
+
+=====================================================================================================================================
+
+  //CODE  ==>  TC : O(N * logN)  or   O(N * log(max(arr[]) - min(arr[]) + 1))   ; SC : O(1);
+
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+
+        long val = (long) m * k;
+        int n = bloomDay.length; 
+
+        // EDGE CASE ==> Check if it's impossible to create enough bouquets with the given conditions
+        if (val > n) return -1; 
+
+        // Initialize variables for binary search
+        int low = Integer.MAX_VALUE;
+        int high = Integer.MIN_VALUE;
+
+        // Find the minimum and maximum bloom days in the array
+        for (int i = 0; i < n; i++) {
+            low = Math.min(low, bloomDay[i]);
+            high = Math.max(high, bloomDay[i]);
+        }
+
+        // Initialize the answer variable to store the result
+        int ans = 0;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (check(bloomDay, mid, m, k)) {
+                ans = mid;
+                high = mid - 1; // go left and search for the minimum day
+            } else {
+                low = mid + 1; // go right and search for the minimum day
+            }
+        }
+        return ans;
+    }
+
+    public boolean check(int bloomDay[], int day, int m, int k) {
+        int n = bloomDay.length;
+        int count = 0;
+        int no_of_Bouquets = 0;
+
+        // Loop through the array of bloom days
+        for (int i = 0; i < n; i++) {
+            // Check if the bloom day is less than or equal to the specified day
+            if (bloomDay[i] <= day) {
+            // If true, increment the count of flowers that have bloomed
+                count++;
+            } 
+            else {
+            // If false (i.e., the current bloom day is greater than the specified day),
+            // calculate how many bouquets can be created with the flowers that have bloomed so far
+            // and reset the count to 0 for the next batch of bloomed flowers
+                no_of_Bouquets += (count / k);
+                count = 0;
+            }
+        }
+
+        // After the loop, calculate the remaining bouquets that can be created with the last batch of bloomed flowers
+        no_of_Bouquets += (count / k);
+
+        // Check if the total number of bouquets created is greater than or equal to the required number (m)
+        return no_of_Bouquets >= m;
+    }
+
+
+}
+
+
+ =====================================================================================================================================
