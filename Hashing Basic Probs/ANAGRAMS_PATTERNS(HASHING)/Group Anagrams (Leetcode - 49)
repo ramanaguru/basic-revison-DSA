@@ -1,0 +1,47 @@
+Group Anagrams (Leetcode - 49)
+
+TC : O(N * k)  ; Sc : O(N*K)
+//The overall time and space complexity is O(NK), where N is the number of strings, and K is the maximum length of any string in the input.
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+
+        //HashMap <String, List<String>> looks like word, freq ==> <e1a1t1, <eat> >. later  tea comes ==> <e1a1t1, <eat , tea> >
+        HashMap<String , List<String> > hm = new HashMap<>();
+
+        for(String str : strs){
+            String freq = checkfreq(str);
+
+            if(hm.containsKey(freq)){
+                hm.get(freq).add(str);
+            }
+            else{
+                ArrayList<String> tempList = new ArrayList<>();
+                tempList.add(str);
+                hm.put(freq , tempList);
+            }
+        }
+
+
+        return new ArrayList<>(hm.values());
+    }
+    public String checkfreq(String str){
+        int freq[] = new int[26];
+        char chArr[] = str.toCharArray();
+
+        for(char ch : chArr){
+            freq[ch - 'a']++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        char ch = 'a';
+
+        for(int i : freq){
+            sb.append(ch);
+            sb.append(i);
+        }
+
+        return sb.toString();
+    }
+}
