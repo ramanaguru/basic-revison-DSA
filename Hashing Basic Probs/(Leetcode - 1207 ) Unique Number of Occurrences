@@ -1,0 +1,30 @@
+Leetcode - 1207 :  Unique Number of Occurrences
+
+
+TC && SC : O(N)
+
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        int n = arr.length;
+        HashMap<Integer , Integer> map = new HashMap<>();
+
+        for(int i = 0; i < n; i++){
+            map.put(arr[i], map.getOrDefault(arr[i] , 0) + 1);
+        }
+        // used a hash set to store the unique counts
+
+        HashSet<Integer> hs = new HashSet<>();
+
+        for(int  count : map.values()){
+
+            if(!hs.add(count)){
+                return false;  //count is already in the set, it means there's a duplicate frequency,
+            }
+
+            hs.add(count);
+        }
+
+        return true;
+    }
+}
